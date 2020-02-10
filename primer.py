@@ -85,3 +85,47 @@ def list_comprehension():
 	return [2 ** i for i in range(9)]
 
 
+def reverse_list(seq):
+	"""
+	C-1.13 Write a pseudo-code description of a function that reverses a list of n
+	integers, so that the numbers are listed in the opposite order than they
+	were before, and compare this method to an equivalent Python function
+	for doing the same thing.
+	"""
+	return seq[::-1]
+
+
+def odd_distinct_values_sum(values):
+	"""
+	C-1.14 Write a short Python function that takes a sequence of integer values and
+	determines if there is a distinct pair of numbers in the sequence whose
+	product is odd.
+	"""
+	for i in values:
+		for j in values:
+			if i != j and (i * j) % 2 != 0:
+				return True
+	return False
+
+
+def distinct_values(values):
+	"""
+	C-1.15 Write a Python function that takes a sequence of numbers and determines
+	if all the numbers are different from each other (that is, they are distinct).
+	"""
+	return values == list(set(values))
+	# Alternative approach would be the following non-reachable block:
+	distinct = []
+	for i in values:
+		if i in distinct:
+			return False
+		distinct.append(i)
+	return True
+
+
+def list_comprehension_2():
+	"""
+	C-1.18 Demonstrate how to use Python’s list comprehension syntax to produce
+	the list [0, 2, 6, 12, 20, 30, 42, 56, 72, 90].
+	"""
+	pass
