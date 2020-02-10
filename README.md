@@ -1,1 +1,1 @@
-### Python Data Structures and algorithms exersices
+### Python Data Structures and algorithms exercises
