@@ -1,5 +1,6 @@
 """Exercises from Primer chapter"""
 import math
+import random
 
 
 def is_multiple(n, m):
@@ -138,3 +139,63 @@ def alphabet_gen():
 	characters literally
 	"""
 	return [chr(i) for i in range(65, 91)]
+
+
+def shuffle_fun(data):
+	"""
+	C-1.20 Python’s random module includes a function shuffle(data) that accepts a
+	list of elements and randomly reorders the elements so that each possible order occurs with equal probability.
+	The random module includes a more basic function randint(a, b) that returns a uniformly random integer
+	from a to b (including both endpoints). Using only the randint function,
+	implement your own version of the shuffle function.
+	"""
+	for i in range(len(data)):
+		j = random.randint(0, len(data) - 1)
+		data[i], data[j] = data[i], data[j]  # Swap value at index i with value at the randomly generated index j
+	return data
+
+
+def line_reader():
+	"""
+	C-1.21 Write a Python program that repeatedly reads lines from standard input
+	until an EOFError is raised, and then outputs those lines in reverse order
+	(a user can indicate end of input by typing ctrl-D).
+	"""
+	input_lines = []
+	while True:
+		try:
+			input_command = input('Type in something cool. Press CTRL-D to terminate: ')
+			input_lines.append(input_command)
+		except EOFError:
+			print('\n Uh-oh.. Seems you have chosen death...')
+			for line in input_lines:
+				print(line)
+			break
+
+
+def array_product(a, b, n):
+	"""
+	C-1.22 Write a short Python program that takes two arrays a and b of length n
+	storing int values, and returns the dot product of a and b. That is, it returns
+	an array c of length n such that c[i] = a[i] · b[i], for i = 0,...,n−1.
+	"""
+	c = []
+	for i in range(n):
+		c[i] = a[i] * b[i]
+	return c
+
+
+def index_out_of_bounds():
+	"""
+	C-1.23 Give an example of a Python code fragment that attempts to write an element to a list based on an index that
+	may be out of bounds. If that index is out of bounds, the program should catch the exception that results, and
+	print the following error message:
+	“Don’t try buffer overflow attacks in Python!”
+	"""
+	my_list = [1,2,3,4,5]
+	try:
+		print(my_list[len(my_list)])
+	except IndexError:
+		print("Don’t try buffer overflow attacks in Python!")
+
+
