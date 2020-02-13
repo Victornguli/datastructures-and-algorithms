@@ -192,10 +192,9 @@ def index_out_of_bounds():
 	print the following error message:
 	“Don’t try buffer overflow attacks in Python!”
 	"""
-	my_list = [1,2,3,4,5]
+	my_list = [1, 2, 3, 4, 5]
 	try:
 		print(my_list[len(my_list)])
 	except IndexError:
 		print("Don’t try buffer overflow attacks in Python!")
-
 
