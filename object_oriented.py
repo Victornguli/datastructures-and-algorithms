@@ -1,7 +1,8 @@
 """Exercises for Object-Oriented Programming chapter"""
+from abc import ABCMeta, abstractmethod
 
 
-# Vector Overloading
+# Vector class with method and operator overloading
 class Vector(object):
 	"""Represents a vector in a multidimensional space"""
 
@@ -168,6 +169,40 @@ class FibonacciProgression(Progression):
 	def _advance(self):
 		"""Update the current value by adding two previous values"""
 		self._prev, self._current = self._current, self._current + self._prev
+
+
+class Sequence(metaclass=ABCMeta):
+	"""Own version of collections. Sequence abstract base class"""
+
+	@abstractmethod
+	def __len__(self):
+		"""Return length of the sequence"""
+
+	@abstractmethod
+	def __getitem__(self, j):
+		"""Return the element at index j of the sequence"""
+
+	def __contains__(self, item):
+		"""Returns True if value is found in the sequence. Returns False if otherwise"""
+		for j in range(len(self)):
+			if self[j] == item:
+				return True
+		return False
+
+	def index(self, val):
+		"""Returns the leftmost index at which val is found. Raise ValueError if not found"""
+		for i in range(len(val)):
+			if self[i] == val:
+				return i
+		raise ValueError('Value not in sequence')
+
+	def count(self, val):
+		"""Returns the number of elements equal to the given value"""
+		count = 0
+		for i in self:
+			if i == self:
+				count += 1
+		return count
 
 
 if __name__ == '__main__':
