@@ -142,3 +142,43 @@ class ArithmeticProgression(Progression):
 	def _advance(self):
 		"""Update the current value by adding the fixed increment"""
 		self._current += self._increment
+
+
+class GeometricProgression(Progression):
+	"""Iterator producing geometric progression"""
+
+	def __init__(self, base = 2, start = 1):
+		"""Initialize GeometricProgression with a base and start value"""
+		super().__init__(start)
+		self._base = base
+
+	def _advance(self):
+		"""Update the current value by multiplying the previous value with the base"""
+		self._current *= self._base
+
+
+class FibonacciProgression(Progression):
+	"""Iterator producing fibonacci progression"""
+
+	def __init__(self, first = 0, second = 1):
+		"""Create a new fibonacci series"""
+		super().__init__(first)
+		self._prev = second - first
+
+	def _advance(self):
+		"""Update the current value by adding two previous values"""
+		self._prev, self._current = self._current, self._current + self._prev
+
+
+if __name__ == '__main__':
+	print('Default Progression: ')
+	Progression().print_progression(10)
+
+	print('Arithmetic Progression with increment of 5')
+	ArithmeticProgression(5).print_progression(10)
+
+	print('Geometric Progression with base of 2')
+	GeometricProgression(2).print_progression(10)
+
+	print('Fibonacci Progression with start values of 4 and 6')
+	FibonacciProgression(4, 6).print_progression(10)
