@@ -198,3 +198,26 @@ def index_out_of_bounds():
 	except IndexError:
 		print("Don’t try buffer overflow attacks in Python!")
 
+
+def vowel_count(target_str):
+	"""
+	C-1.24 Write a short Python function that counts the number of vowels in a given
+	character string.
+	"""
+	vowels = ['a', 'e', 'i', 'o', 'u']
+	count = 0
+	for letter in target_str:
+		if letter in target_str:
+			count += 1
+	return count
+
+
+def birthday_paradox():
+	"""
+	P-1.35 The birthday paradox says that the probability that two people in a room
+	will have the same birthday is more than half, provided n, the number of
+	people in the room, is more than 23. This property is not really a paradox,
+	but many people find it surprising. Design a Python program that can test
+	this paradox by a series of experiments on randomly generated birthdays,
+	which test this paradox for n = 5,10,15,20,...,100.
+	"""

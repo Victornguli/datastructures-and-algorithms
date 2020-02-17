@@ -95,3 +95,50 @@ class Range:
 			raise IndexError('Index out of range')
 
 		return self._start + k * self._step
+
+
+class Progression:
+	"""
+	Iterator producing a generic progression
+	Default iter produces the pattern 0,1,2,3...
+	"""
+
+	def __init__(self, start = 0):
+		"""
+		Initialize the current to the first value of the progression
+		"""
+		self._current = start
+
+	def _advance(self):
+		"""Updates current with new value. Override this in sub-classes for custom progression"""
+		self._current += 1
+
+	def __next__(self):
+		"""Return the next element else raise StopIteration Error"""
+		if self._current is None:
+			raise StopIteration()
+		else:
+			answer = self._current
+			self._advance()
+			return answer
+
+	def __iter__(self):
+		"""By convention an iter must return itself"""
+		return self
+
+	def print_progression(self, n):
+		"""Print the next n values of a progression"""
+		print(' '.join(str(self.__next__()) for j in range(n)))
+
+
+class ArithmeticProgression(Progression):
+	"""Iterator producing arithmetic progression"""
+
+	def __init__(self, increment = 1, start = 0):
+		"""Initialize the iterator with 1 as the increment to be used starting from 0"""
+		super().__init__(start)
+		self._increment = increment
+
+	def _advance(self):
+		"""Update the current value by adding the fixed increment"""
+		self._current += self._increment
