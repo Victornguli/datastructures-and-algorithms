@@ -31,6 +31,22 @@ class Vector(object):
 			result[j] = self[j] + other[j]
 		return result
 
+	def __sub__(self, other):
+		"""Returns the difference of two vectors"""
+		if len(self) != len(other):
+			return ValueError('Dimensions must be equal')
+		result = Vector(len(self))
+		for j in range(len(self)):
+			result[j] = self[j] - other[j]
+		return result
+
+	def __neg__(self):
+		"""Returns negated coordinates of a vector"""
+		result = Vector(len(self))
+		for i in range(len(self)):
+			result[i] = -self[i]
+		return result
+
 	def __eq__(self, other):
 		"""Return True if vector has same coordinates as other"""
 		return self._coords == other._coords
@@ -203,6 +219,47 @@ class Sequence(metaclass=ABCMeta):
 			if i == self:
 				count += 1
 		return count
+
+
+#  Excercises
+
+class Flower:
+	"""R-2.4 Write a Python class, Flower, that has three instance variables of type str,
+	int, and float, that respectively represent the name of the flower, its number of petals, and its price.
+	Your class must include a constructor method
+	that initializes each variable to an appropriate value, and your class should
+	include methods for setting the value of each type, and retrieving the value
+	of each type."""
+
+	def __init__(self, name, petal_count, price):
+		"""Initializes the flower class"""
+		self._name = name
+		self._petal_count = petal_count
+		self._price = price
+
+	def set_name(self, name):
+		"""Sets flower name"""
+		self._name = name
+
+	def get_name(self, name):
+		"""Gets name"""
+		return self._name
+
+	def set_petal_count(self, petal_count):
+		"""Sets Petal Count"""
+		self._petal_count = petal_count
+
+	def get_petal_count(self, petal_count):
+		"""Gets petal count"""
+		return self._petal_count
+
+	def set_price(self, price):
+		"""Sets flower price"""
+		self._price = price
+
+	def get_price(self):
+		"""Gets flower price"""
+		return self._price
 
 
 if __name__ == '__main__':
