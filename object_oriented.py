@@ -279,6 +279,7 @@ class Flower:
 
 
 if __name__ == '__main__':
+	print('Test Suite \n')
 	print('Default Progression: ')
 	Progression().print_progression(10)
 
