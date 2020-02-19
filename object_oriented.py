@@ -31,6 +31,22 @@ class Vector(object):
 			result[j] = self[j] + other[j]
 		return result
 
+	def __mul__(self, k):
+		"""Returns the product of a vector multiplied by a constant k"""
+		for i in range(len(self)):
+			self[i] *= 3
+		return self
+
+	def __rmul__(self, k):
+		"""Returns the right multiplication of the vector by a constant k"""
+		result = Vector(len(self)*k)
+		count = 0
+		for i in range(k):
+			for j in range(len(self)):
+				result[count] = self[j]
+				count += 1
+		return result
+
 	def __sub__(self, other):
 		"""Returns the difference of two vectors"""
 		if len(self) != len(other):
