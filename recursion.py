@@ -47,7 +47,23 @@ def binary_search(data, target, low, high):
 		return binary_search(data, target, mid + 1, high)
 
 
+import os
+# File traversals
+
+
+def path_size(path):
+	"""Return number of bytes used by a folder and its sub-folders"""
+	size = os.path.getsize(path)
+	if os.path.isdir(path):
+		for filename in os.listdir(path):
+			child_path = os.path.join(path, filename)
+			size += path_size(child_path)
+	print('{0:<7}' .format(size), path)
+	return size
+
+
 if __name__ == '__main__':
-	# print(factorial(5))
-	# draw_ruler(3, 3)
+	print(factorial(5))
+	draw_ruler(3, 3)
 	print(binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 11, 0, 9))
+	path_size('C:/Users/Finance Plan Dev/Pictures')
