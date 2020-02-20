@@ -32,7 +32,7 @@ def prefix_avg2(input_list):
 	n = len(input_list)  # Constant 0(1)
 	prefix_avg = [0] * n  # Linear 0(n)
 	for j in range(n):  # 0(n) too for loop computation
-		prefix_avg[j] = sum(input_list[0:j + 1]) / (j + 1)   # The statement input_list[0:j+1] takes 0(j+1) therefore
+		prefix_avg[j] = sum(input_list[0:j + 1]) / (j + 1)  # The statement input_list[0:j+1] takes 0(j+1) therefore
 	# 0(n) too
 	return prefix_avg
 
@@ -44,7 +44,7 @@ def prefix_3(input_list):
 	total = 0
 	for j in range(n):
 		total += input_list[j]
-		prefix_avg[j] = total / (j+1)
+		prefix_avg[j] = total / (j + 1)
 	return prefix_avg
 
 
@@ -72,9 +72,25 @@ def disjoint_2(a, b, c):
 
 
 # Element uniqueness problem
+# In the element uniqueness problem, we are given a single sequence s with n elements and asked
+# whether all elements of that collection are distinct from each other
+def unique1(s):
+	"""Return True if there are no duplicate elements in sequence s."""
+	for i in range(len(s)):
+		for j in range(i + 1, len(s)):
+			if s[i] == s[j]:
+				return False
+	return True  # The solution is obviously 0(n2)
 
+
+def unique2(s):
+	"""Return True if there are no duplicate elements in sequence s."""
+	sort = sorted(s)
+	for i in range(len(sort) - 1):
+		if s[i] == s[i + 1]:
+			return False
+	return True  # Due to sorting action the complexity of this operation is 0(nlogn)
 
 
 if __name__ == '__main__':
-	# print(find_max([3, 35, 5, 6, 2, 2, 34, 54, 465, 656, 6, 73, 24, 23243, 545, 65]))
-	print(prefix_3([1, 2, 3, 4, 5]))
+	print(unique2([3, 35, 5, 6, 2, 2, 34, 54, 465, 656, 6, 73, 24, 23243, 545, 65]))
