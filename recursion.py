@@ -48,6 +48,8 @@ def binary_search(data, target, low, high):
 
 
 import os
+
+
 # File traversals
 
 
@@ -58,12 +60,49 @@ def path_size(path):
 		for filename in os.listdir(path):
 			child_path = os.path.join(path, filename)
 			size += path_size(child_path)
-	print('{0:<7}' .format(size), path)
+	print('{0:<7}'.format(size), path)
 	return size
 
 
+# Linear recursive sum
+def linear_sum(data, n):
+	print(n)
+	if n == 0:
+		return 0
+	else:
+		return linear_sum(data, n - 1) + data[n - 1]
+
+
+# Linear reverse list
+def linear_reverse(data, start, stop):
+	if start < stop - 1:
+		data[start], data[stop - 1] = data[stop - 1], data[start]
+		linear_reverse(data, start + 1, stop - 1)
+	return data
+
+
+# Power calculation recursively
+def power(x, n):
+	if n == 0:
+		return 1
+	return x * power(x, n-1)
+
+
+# Improved power algorithm
+def power_imp(x, n):
+	if n == 0:
+		return 1
+	partial = power_imp(x, n // 2)
+	result = partial * partial
+	if n % 2 == 1:
+		result *= x
+	return result
+
+
 if __name__ == '__main__':
-	print(factorial(5))
-	draw_ruler(3, 3)
-	print(binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 11, 0, 9))
-	path_size('C:/Users/Finance Plan Dev/Pictures')
+	# print(factorial(5))
+	# draw_ruler(3, 3)
+	# print(binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 11, 0, 9))
+	# print(linear_sum([1, 2, 3, 4, 5], 3))
+	# print(linear_reverse([1, 2, 3, 4, 5], 0, 5))
+	print(power_imp(2, 5))
