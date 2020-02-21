@@ -74,5 +74,43 @@ def insertion_sort(data):
 	return data
 
 
+# Caesar's Cipher
+class CaesarCipher:
+	"""Caesar's Cipher implementation with an arbitrary character shift"""
+	def __init__(self, shift):
+		"""Construct a Caesar cipher using a given integer for shift rotation"""
+		encoder = [None] * 26
+		decoder = [None] * 26
+		for k in range(26):
+			encoder[k] = chr((k + shift) % 26 + ord('A'))
+			decoder[k] = chr((k - shift) % 26 + ord('A'))
+		self._forward = ''.join(encoder)
+		self._backward = ''.join(decoder)
+
+	def encrypt(self, message):
+		"""Returns the string representation of the encrypted message"""
+		return self._transform(message, self._forward)
+
+	def decrypt(self, secret):
+		"""Return decrypted message given decrypted secret"""
+		return self._transform(secret, self._backward)
+
+	@staticmethod
+	def _transform(original, code):
+		"""Utility to perform transformation given a certain string"""
+		msg = list(original)
+		for k in range(len(msg)):
+			if msg[k].isupper():
+				j = ord(msg[k]) - ord('A')
+				msg[k] = code[j]
+		return ''.join(msg)
+
+
 if __name__ == '__main__':
-	print(insertion_sort([5, 2, 6, 65, 22, 35, 56, 1, 3, 45, 6, 7]))
+	# print(insertion_sort([5, 2, 6, 65, 22, 35, 56, 1, 3, 45, 6, 7]))
+	message = 'THE EAGLE HAS LANDED'
+	enc = CaesarCipher(5)
+	coded = enc.encrypt(message)
+	print('SECRET: ', coded)
+	decoded = enc.decrypt(coded)
+	print('DECODED: ', decoded)
