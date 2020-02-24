@@ -18,6 +18,10 @@ class ArrayStack:
 	def is_empty(self):
 		return self._data == 0
 
+	def push(self, val):
+		"""Adds a value to the top of the stack"""
+		return self._append(val)
+
 	def top(self):
 		"""Return the top item. Raise Empty error if topmost item in stack is not found"""
 		if self.is_empty():
@@ -29,3 +33,5 @@ class ArrayStack:
 		if self.is_empty():
 			raise Empty('Stack is empty')
 		return self._data.pop()
+
+
