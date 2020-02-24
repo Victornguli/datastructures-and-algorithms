@@ -68,6 +68,7 @@ def insertion_sort(data):
 		curr = data[i]
 		j = i
 		while j > 0 and data[j - 1] > curr:
+			print(data)
 			data[j] = data[j - 1]
 			j -= 1
 		data[j] = curr
@@ -107,7 +108,7 @@ class CaesarCipher:
 
 
 if __name__ == '__main__':
-	# print(insertion_sort([5, 2, 6, 65, 22, 35, 56, 1, 3, 45, 6, 7]))
+	print(insertion_sort([5, 2, 6, 65, 22, 35, 56, 1, 3, 45, 6, 7]))
 	message = 'THE EAGLE HAS LANDED'
 	enc = CaesarCipher(5)
 	coded = enc.encrypt(message)
