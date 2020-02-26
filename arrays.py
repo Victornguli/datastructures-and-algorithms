@@ -7,11 +7,12 @@ class DynamicArray:
 
 	def __init__(self):
 		"""Create empty array"""
-		self._n = 0
-		self._capacity = 1
+		self._n = 0  # Total number of elements in the array
+		self._capacity = 1  # The capacity of the array
 		self._A = self._make_array(self._capacity)
 
 	def __len__(self):
+		"""Return the length of the array"""
 		return self._n
 
 	def __getitem__(self, item):
@@ -19,13 +20,20 @@ class DynamicArray:
 			raise IndexError('Index Out of Range')
 		return self._A[item]
 
+	def __repr__(self):
+		"""Returns the string representation of the dynamic array"""
+		return str([self._A[i] for i in range(len(self))])
+
 	def append(self, obj):
+		"""Insert into the dynamic array an obj at the last index available"""
 		if self._n == self._capacity:  # There isn't enough space
 			self._resize(2 * self._capacity)
-		self._A[self._n] = obj
+		self._A[self._n] = obj  # n is applicable as an index pointing to an index after the last element is there
+		# are a total of n elements in an array with extra capacity.
 		self._n += 1
 
 	def _resize(self, c):
+		"""Resize the dynamic array with a capacity c"""
 		B = self._make_array(c)
 		for k in range(self._n):
 			B[k] = self._A[k]
@@ -33,6 +41,7 @@ class DynamicArray:
 		self._capacity = c
 
 	def _make_array(self, c):
+		"""Create a new Array object"""
 		return (c * ctypes.py_object)()
 
 	def insert(self, k, value):
@@ -54,11 +63,6 @@ class DynamicArray:
 				return
 		raise ValueError('Value not found')
 
-# def __str__(self):
-# 	"""Return the string representation of the Array"""
-# 	# res = ''
-# 	return str(self)
-
 
 # Sorting Sequences
 # Insertion Sort
@@ -68,7 +72,6 @@ def insertion_sort(data):
 		curr = data[i]
 		j = i
 		while j > 0 and data[j - 1] > curr:
-			print(data)
 			data[j] = data[j - 1]
 			j -= 1
 		data[j] = curr
@@ -115,3 +118,7 @@ if __name__ == '__main__':
 	print('SECRET: ', coded)
 	decoded = enc.decrypt(coded)
 	print('DECODED: ', decoded)
+	simple_list = DynamicArray()
+	for i in range(5):
+		simple_list.append(i)
+	print(simple_list)
