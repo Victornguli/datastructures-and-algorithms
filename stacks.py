@@ -15,12 +15,16 @@ class ArrayStack:
 	def __len__(self):
 		return len(self._data)
 
+	def __repr__(self):
+		"""Returns representational str of the array"""
+		return str(self._data)
+
 	def is_empty(self):
-		return self._data == 0
+		return self._data == []
 
 	def push(self, val):
 		"""Adds a value to the top of the stack"""
-		return self._append(val)
+		return self._data.append(val)
 
 	def top(self):
 		"""Return the top item. Raise Empty error if topmost item in stack is not found"""
@@ -76,4 +80,27 @@ def is_matched_html(raw):
 	# comparison to make sure any matching tag in the stack is removed.
 
 
+def transfer(S, T):
+	"""
+	Implement a function with signature transfer(S, T) that transfers all elements from stack S onto stack T, so that
+	the element that starts at the top of S is the first to be inserted onto T, and the element at the bottom of S
+	ends up at the top of T.
+	"""
+	if S.is_empty():
+		raise Empty('Empty Stack')
+	# for i in range(len(S)):
+	# 	T.push(S.pop())
+	# OR :
+	while not S.is_empty():
+		T.push(S.pop())
 
+	return (S, T)
+
+
+if __name__ == '__main__':
+	s = ArrayStack()
+	t = ArrayStack()
+	for i in range(5):
+		s.push(i)
+	print(s)
+	print(transfer(s, t))
