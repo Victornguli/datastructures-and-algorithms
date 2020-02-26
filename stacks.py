@@ -64,10 +64,10 @@ def is_matched_html(raw):
 	stack = ArrayStack()
 	j = raw.find('<')  # Find first opening tag
 	while j != -1:  # Confirm if there is an HTML Tag
-		k = raw.find('>', j+1)  # Search for the closing tag
+		k = raw.find('>', j + 1)  # Search for the closing tag
 		if k == -1:
 			return False  # Closing Tag not Found
-		tag = raw[j+1:k]  # The html tag e.g title or /title
+		tag = raw[j + 1:k]  # The html tag e.g title or /title
 		if not tag.startswith('/'):
 			stack.append(tag)
 		else:
@@ -75,9 +75,11 @@ def is_matched_html(raw):
 				return False  # Empty stack yet a closing tag is found means the html tag is not valid
 			if tag[1:] != stack.pop():  # Access the tag from index 1 to remove / since its a closing tag
 				return False  # The closing tag does not match the topmost one in the stack(Should be its opening)
-		j = raw.find('<', k+1)  # j(opening tag) is now searched for from the index k+1
+		j = raw.find('<', k + 1)  # j(opening tag) is now searched for from the index k+1
 	return stack.is_empty()  # If the stack is empty all tags have matches: Note how stack.pop() is used during
-	# comparison to make sure any matching tag in the stack is removed.
+
+
+# comparison to make sure any matching tag in the stack is removed.
 
 
 def transfer(S, T):
@@ -97,10 +99,37 @@ def transfer(S, T):
 	return (S, T)
 
 
+def pop_recurs(stack):
+	"""
+	Give a recursive method for removing all the elements from a stack
+	"""
+	if not stack.is_empty():
+		stack.pop()
+		return pop_recurs(stack)
+	return stack
+
+
+def reverse_list_with_stack(data):
+	"""
+	Implement a function that reverses a list of elements by pushing them onto
+	a stack in one order, and writing them back to the list in reversed order
+	"""
+	stack = ArrayStack()
+	for elem in data:
+		stack.push(elem)
+	idx = 0
+	while not stack.is_empty():
+		data[idx] = stack.pop()
+		idx += 1
+	return data
+
+
 if __name__ == '__main__':
 	s = ArrayStack()
 	t = ArrayStack()
 	for i in range(5):
 		s.push(i)
-	print(s)
-	print(transfer(s, t))
+	print(pop_recurs(s))
+	# print(s)
+	# print(transfer(s, t))
+	print(reverse_list_with_stack([1, 2, 3, 4, 5]))
