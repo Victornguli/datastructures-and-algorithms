@@ -47,7 +47,7 @@ class LinkedStack:
 	def pop(self):
 		"""Remove and return the element at the top of the stack(LIFO)"""
 		if self.is_empty():
-			raise Empty('Stack is empty')
+			raise Empty('Stack Underflow')
 		value = self._head._element
 		self._head = self._head._next  # Override the head value to contain the current head's next node
 		self._size -= 1
@@ -86,11 +86,11 @@ class LinkedQueue:
 
 	def enqueue(self, e):
 		"""Add an element to the back of the queue"""
-		newest = self._Node(e, None)
+		newest = self._Node(e, None)  # Initialize the next of the node as None since it will be the tail anyways
 		if self.is_empty():
 			self._head = newest
 		else:
-			self._tail._next = newest
+			self._tail._next = newest  # Update the current tail node to reference new tail in its next
 		self._tail = newest
 		self._size += 1
 
