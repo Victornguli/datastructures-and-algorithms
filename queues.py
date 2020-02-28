@@ -68,13 +68,13 @@ class Queue:
 		self._front = 0  # Front has been re-aligned
 
 
-class ArrayDequeue:
-	"""Dequeue Implementation Allowing insert and delete from both front and end of the queue"""
+class ArrayDeque:
+	"""Double-ended Queue(deque) Implementation Allowing insert and delete from both front and end of the queue"""
 
 	DEFAULT_QUEUE_SIZE = 10
 
 	def __init__(self):
-		"""Creates empty queue"""
+		"""Creates empty deque"""
 		self._data = [None] * self.DEFAULT_QUEUE_SIZE
 		self._front = 0
 		self._size = 0
@@ -155,5 +155,5 @@ class ArrayDequeue:
 		# from index 0
 
 	def rotate(self, k):
-		"""Circularly shift the dequeue rightwards with k steps"""
+		"""Circularly shift the queue rightwards with k steps"""
 		pass
