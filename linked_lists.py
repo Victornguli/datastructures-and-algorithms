@@ -166,6 +166,61 @@ class CircularQueue:
 			self._tail = self._tail._next
 
 
+class _DoublyLinkedBase:
+	"""A base class providing a doubly linked list representation"""
+
+	class _Node:
+		"""A non-public class for storing a node in a doubly linked list"""
+		__slots__ = '_element', '_prev', '_next'  # Streamline memory
+
+		def __init__(self, element, prev, next):
+			"""Create a new node """
+			self._element = element
+			self._prev = prev
+			self._next = next
+
+	def __init__(self):
+		"""Creates an empty list"""
+		# _header and _trailer are the two sentinel nodes at the start and the end of the linked list
+		self._header = self._Node(None, None, None)
+		self._trailer = self._Node(None, None, None)
+		self._header._prev = self._trailer
+		self._trailer._next = self._header
+		self._size = 0  # Initial size is 0: _header and _trailer are not acknowledged as real elements of the list
+
+	def __len__(self):
+		"""Returns the length of the list"""
+		return self._size
+
+	def is_empty(self):
+		"""Returns True if the list is empty"""
+		return self._size == 0
+
+	def _insert_between(self, e, predecessor, successor):
+		"""
+		Add a new node between two existing nodes, the predecessor and a successor, and return the new node
+		"""
+		newest = self._Node(e, predecessor, successor)
+		predecessor._next = newest
+		successor._prev = newest
+		self._size += 1
+		return newest
+
+	def _delete_node(self, node):
+		"""Delete a non-sentinel node(neither the header or the trailer) from the list and return its element"""
+		predecessor = node._prev
+		successor = node._next
+		successor._prev = predecessor
+		predecessor._next = successor
+		self._size -= 1
+		# Successfully unlinked the node
+		element = node._element
+		node._next = node._element = node._element = None  # Garbage collect/cleanup the unliked node
+		return element
+
+
+
+
 if __name__ == '__main__':
 	ls = LinkedStack()
 	for i in range(5):
