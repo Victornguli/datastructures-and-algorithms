@@ -50,7 +50,7 @@ def prefix_3(input_list):
 
 # Three way Disjointness
 def disjoint(a, b, c):
-	"""Return True if there is no element common to all three lists."""
+	"""Return True if there is no element common to all three arrays."""
 	for i in range(a):
 		for j in range(b):
 			for k in range(c):
@@ -61,7 +61,7 @@ def disjoint(a, b, c):
 
 # An improvement on the above 0(n3) approach is realising that you only need to check i and j against j if they match
 def disjoint_2(a, b, c):
-	"""Return True if there is no element common to all three lists."""
+	"""Return True if there is no element common to all three arrays."""
 	for i in range(a):
 		for j in range(b):
 			if a == b:

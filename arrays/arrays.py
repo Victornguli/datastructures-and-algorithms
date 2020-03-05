@@ -111,7 +111,7 @@ class CaesarCipher:
 
 
 if __name__ == '__main__':
-	print(insertion_sort([5, 2, 6, 65, 22, 35, 56, 1, 3, 45, 6, 7]))
+	print(insertion_sort([5, 1, 4, 3, 2]))
 	message = 'THE EAGLE HAS LANDED'
 	enc = CaesarCipher(5)
 	coded = enc.encrypt(message)
