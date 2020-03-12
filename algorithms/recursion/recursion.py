@@ -34,7 +34,7 @@ def draw_ruler(num_inches, major_length):
 		draw_line(major_length, str(j))
 
 
-# Binary search
+# Binary search algorithm recursively
 def binary_search(data, target, low, high):
 	if low >= high:
 		return False
@@ -51,8 +51,6 @@ import os
 
 
 # File traversals
-
-
 def path_size(path):
 	"""Return number of bytes used by a folder and its sub-folders"""
 	size = os.path.getsize(path)
@@ -66,7 +64,6 @@ def path_size(path):
 
 # Linear recursive sum
 def linear_sum(data, n):
-	print(n)
 	if n == 0:
 		return 0
 	else:
@@ -88,7 +85,7 @@ def power(x, n):
 	return x * power(x, n-1)
 
 
-# Improved power algorithm
+# Improvement on the above power function
 def power_imp(x, n):
 	if n == 0:
 		return 1
@@ -99,10 +96,62 @@ def power_imp(x, n):
 	return result
 
 
+# C-4.9 Write a short recursive Python function that finds the minimum and maximum values in a
+# sequence without using any loops.
+def min_recur(seq, n):
+	"""Finds min numbers in a sequence recursively"""
+	if n == 1:
+		return seq[0]
+	else:
+		return min(seq[n - 1], min_recur(seq, n - 1))
+
+
+def max_recur(seq, n):
+	"""Finds max numbers in a sequence recursively"""
+	if n == 1:
+		return seq[0]
+	else:
+		return max(seq[n - 1], max_recur(seq, n - 1))
+
+
+# C-4.10 Describe a recursive algorithm to compute the integer part of the base-two
+# logarithm of n using only addition and integer division.
+def base_two(n):
+	if n <= 2:
+		return 1
+	else:
+		return base_two(n // 2) + 1
+
+
+# C-4.12 Give a recursive algorithm to compute the product of two positive integers,
+# m and n, using only addition and subtraction.
+def recursive_product(m, n):
+	if n == 1:
+		return m
+	else:
+		return recursive_product(m, n - 1) + m
+
+
+# C-4.18 Use recursion to write a Python function for determining if a string s has
+# more vowels than consonants
+def has_more_vowels(s, idx, vowel_count, cons_count):
+	vowels = 'aeiou'
+	if idx == len(s):
+		return vowel_count >= cons_count
+	if s[idx] in vowels:
+		return has_more_vowels(s, idx + 1, vowel_count + 1, cons_count)
+	else:
+		return has_more_vowels(s, idx + 1, vowel_count, cons_count + 1)
+
+
 if __name__ == '__main__':
 	# print(factorial(5))
 	# draw_ruler(3, 3)
 	# print(binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 11, 0, 9))
 	# print(linear_sum([1, 2, 3, 4, 5], 3))
 	# print(linear_reverse([1, 2, 3, 4, 5], 0, 5))
-	print(power_imp(2, 5))
+	# print(power_imp(2, 5))
+	# print(min_recur([1,2,3,4,5,6], 6))
+	# print(recursive_product(1000, 35))
+	print(base_two(128))
+	print(has_more_vowels('viictoria', 0, 0, 0))
