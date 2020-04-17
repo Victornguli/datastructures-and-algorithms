@@ -1,5 +1,5 @@
 """Collection of recursive algorithms"""
-
+from fractions import Fraction
 
 # Factorial function
 def factorial(n):
@@ -85,7 +85,7 @@ def power(x, n):
 	return x * power(x, n-1)
 
 
-# Improvement on the above power function
+# Improvement on the above power function. Uses repeated squaring Algorithm for odd and even numbers
 def power_imp(x, n):
 	if n == 0:
 		return 1
@@ -144,6 +144,43 @@ def has_more_vowels(s, idx, vowel_count, cons_count):
 		return has_more_vowels(s, idx + 1, vowel_count, cons_count + 1)
 
 
+# R-4.6 Describe a recursive function for computing the nth Harmonic number, Hn = ∑ni=1 1/i.
+def nth_harmonic_number(n):
+	if n == 1:
+		return Fraction(1, 1)  # Basically since 1/1 == 1
+	else:
+		return Fraction(1, n) + Fraction(nth_harmonic_number(n - 1))
+
+
+def good_fib(n):
+	"""Efficient fibonacci using recursion. Avoids exponential number of recursive function calls"""
+	if n <= 1:
+		return n, 0
+	else:
+		a, b = good_fib(n - 1)
+		return a + b, a
+
+
+def recursive_sum(elements, n):
+	"""Sums a list of elements recursively"""
+	if n == 0:  # Base case when the length of elements is zero
+		return 0
+	else:
+		return elements[n - 1] + recursive_sum(elements, n - 1)
+
+
+def binary_sum(s, start, stop):
+	if start >= stop:
+		return 0
+	elif start == stop - 1:
+		print(s[start])
+		return s[start]
+	else:
+		print(s[start:stop])
+		mid = (start + stop) // 2
+		return binary_sum(s, start, mid) + binary_sum(s, mid, stop)
+
+
 if __name__ == '__main__':
 	# print(factorial(5))
 	# draw_ruler(3, 3)
@@ -153,5 +190,8 @@ if __name__ == '__main__':
 	# print(power_imp(2, 5))
 	# print(min_recur([1,2,3,4,5,6], 6))
 	# print(recursive_product(1000, 35))
-	print(base_two(128))
-	print(has_more_vowels('viictoria', 0, 0, 0))
+	# print(base_two(128))
+	# print(has_more_vowels('viictoria', 0, 0, 0))
+	# draw_ruler(2, 4)
+	# print(binary_sum([1, 2, 3, 4, 5], 0, 5))
+	print(nth_harmonic_number(5))
