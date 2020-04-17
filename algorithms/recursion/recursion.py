@@ -1,6 +1,7 @@
 """Collection of recursive algorithms"""
 from fractions import Fraction
 
+
 # Factorial function
 def factorial(n):
 	if n == 0:
@@ -82,7 +83,7 @@ def linear_reverse(data, start, stop):
 def power(x, n):
 	if n == 0:
 		return 1
-	return x * power(x, n-1)
+	return x * power(x, n - 1)
 
 
 # Improvement on the above power function. Uses repeated squaring Algorithm for odd and even numbers
@@ -181,6 +182,21 @@ def binary_sum(s, start, stop):
 		return binary_sum(s, start, mid) + binary_sum(s, mid, stop)
 
 
+# C-4.11 Describe an efficient recursive function for solving the element uniqueness problem, which runs in time that
+# is at most O(n2) in the worst case without using sorting.
+def has_duplicates(data):
+	print(data)
+	if len(data) <= 1:
+		return False
+	if data[0] == data[1]:
+		return True
+	if has_duplicates([data[0]] + data[2:]):
+		return True
+	if has_duplicates(data[1:]):
+		return True
+	return False
+
+
 if __name__ == '__main__':
 	# print(factorial(5))
 	# draw_ruler(3, 3)
@@ -194,4 +210,5 @@ if __name__ == '__main__':
 	# print(has_more_vowels('viictoria', 0, 0, 0))
 	# draw_ruler(2, 4)
 	# print(binary_sum([1, 2, 3, 4, 5], 0, 5))
-	print(nth_harmonic_number(5))
+	# print(nth_harmonic_number(5))
+	print(has_duplicates(['a', 'b', 'c', 'd']))
