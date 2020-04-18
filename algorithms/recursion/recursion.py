@@ -148,7 +148,7 @@ def has_more_vowels(s, idx, vowel_count, cons_count):
 # R-4.6 Describe a recursive function for computing the nth Harmonic number, Hn = ∑ni=1 1/i.
 def nth_harmonic_number(n):
 	if n == 1:
-		return Fraction(1, 1)  # Basically since 1/1 == 1
+		return Fraction(1, 1)  # Use Fraction for concise fractional representation e.g 1/1 instead of 1
 	else:
 		return Fraction(1, n) + Fraction(nth_harmonic_number(n - 1))
 
@@ -215,7 +215,6 @@ def tower_hanoi(n, source, aux, target):
 def subsets(s):
 	if not s:
 		return [[]]
-
 	x = subsets(s[1:])
 	return x + [[s[0]] + y for y in x]
 
@@ -227,17 +226,6 @@ def reverse(string):
 		return string
 	else:
 		return reverse(string[1:]) + string[0]
-
-
-def remove_duplicates(s, start, end):
-	if start >= end:
-		return s
-	else:
-		s_arr = list(s)
-		s_arr[start], s_arr[end - 1] = s_arr[end - 1], s_arr[start]
-		start += 1
-		end -= 1
-		return remove_duplicates(''.join(s_arr), start, end)
 
 
 # C-4.19 Write a short recursive Python function that rearranges a sequence of integer values so that all the even
@@ -265,6 +253,32 @@ def rearrange_2(seq, k):
 		return rearrange_2(seq[1:], k) + [seq[0]]
 
 
+# C-4.17 Write a short recursive Python function that determines if a string s is a palindrome, that is, it is equal
+# to its reverse. For example, racecar and gohangasalamiimalasagnahog are palindromes.
+def palindrome(s):
+	if len(s) < 1:
+		return True
+	if s[0] == s[-1]:
+		return palindrome(s[1:-1])
+	else:
+		return False
+
+
+# C-4.21 Suppose you are given an n-element sequence, S, containing distinct integers that are listed in increasing
+# order. Given a number k, describe a recursive algorithm to find two integers in S that sum to k, if such a pair
+# exists. What is the running time of your algorithm?
+def has_target(s, target):
+	if len(s) <= 1:
+		return False
+	if s[0] + s[1] == target:
+		return True
+	if has_target([s[0]] + s[2:], target):
+		return True
+	if has_target(s[1:], target):
+		return True
+	return False
+
+
 if __name__ == '__main__':
 	# print(factorial(5))
 	# draw_ruler(3, 3)
@@ -275,13 +289,15 @@ if __name__ == '__main__':
 	# print(min_recur([1,2,3,4,5,6], 6))
 	# print(recursive_product(1000, 35))
 	# print(base_two(128))
-	print(has_more_vowels('viictoria', 0, 0, 0))
+	# print(has_more_vowels('victoria', 0, 0, 0))
 	# draw_ruler(2, 4)
 	# print(binary_sum([1, 2, 3, 4, 5], 0, 5))
 	# print(nth_harmonic_number(5))
-	print(has_duplicates(['a', 'b', 'c', 'd', 'c']))
-	source, aux, target = [4, 3, 2, 1], [], []
-	tower_hanoi(len(source), source, aux, target)
+	# print(has_duplicates(['a', 'b', 'c', 'd', 'c']))
+	# source, aux, trgt = [4, 3, 2, 1], [], []
+	# tower_hanoi(len(source), source, aux, trgt)
 	# print(source, aux, target)
-	li = [1, 3, 2]
-	print(rearrange_2(li, 3))
+	# li = [1, 3, 2]
+	# print(rearrange_2(li, 3))
+	# print(palindrome('gohangasalamiimalasagnahog'))
+	print(has_target([1, 2, 3, 4], 6))
