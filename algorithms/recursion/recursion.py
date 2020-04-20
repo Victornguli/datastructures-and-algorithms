@@ -279,6 +279,27 @@ def has_target(s, target):
 	return False
 
 
+#
+# P-4.27 Python’s os module provides a function with signature walk(path) that is a generator yielding the
+# tuple (dirpath, dirnames, filenames) for each subdirectory of the directory identified by string path,
+# such that string dirpath is the full path to the subdirectory, dirnames is a list of the names
+# of the subdirectories within dirpath, and filenames is a list of the names of non-directory entries of dirpath. For
+# example, when visiting the cs016 subdirectory of the file system shown in Figure 4.6, the walk would yield
+# ( /user/rt/courses/cs016 , [ homeworks , programs ], [ grades ]). Give your own implementation of such a walk
+# function.
+def walk(path):
+	if os.path.isdir(path):
+		children = os.listdir(path)
+		sub_dirs, files = [], []
+		for file_name in children:
+			if os.path.isdir(os.path.join(path, file_name)):
+				sub_dirs.append(file_name)
+				yield from walk(os.path.join(path, file_name))
+			else:
+				files.append(file_name)
+		yield path, sub_dirs, files
+
+
 if __name__ == '__main__':
 	# print(factorial(5))
 	# draw_ruler(3, 3)
@@ -300,4 +321,6 @@ if __name__ == '__main__':
 	# li = [1, 3, 2]
 	# print(rearrange_2(li, 3))
 	# print(palindrome('gohangasalamiimalasagnahog'))
-	print(has_target([1, 2, 3, 4], 6))
+	# print(has_target([1, 2, 3, 4], 6))
+	for dir_name in walk('dir_path_here'):
+		print(dir_name)
