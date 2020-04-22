@@ -126,17 +126,23 @@ class DynamicArray:
 			right -= 1
 		return
 
-	def pop(self, *args):
+	def pop(self, key = None):
 		"""
-		Removes the last element of the array if self._n >= 1 or removes from a particular index if an index is
-		passed
+		Removes and return an items at an index if self._n >= 1. Defaults to the last item
 		"""
 		if self._n < 1:
 			raise IndexError('Pop from an empty Array')
-		val = self._A[self._n - 1]
-		if not args:
+		key = key if key is not None else self._n - 1
+		val = self._A[key]
+		if key == self._n - 1:  # Pop in constant time since this is the last element of the array
+			val = self._A[key]
+			self._A[key] = None
+		else:  # Remove the element and shift the remaining right-side elements to the left.
+			print(key)
+			for j in range(key, self._n - 1):
+				self._A[j] = self._A[j + 1]
 			self._A[self._n - 1] = None
-			self._n -= 1
+		self._n -= 1
 		return val
 
 
@@ -200,6 +206,8 @@ if __name__ == '__main__':
 		other_list.append(i)
 	for i in range(1, 6):
 		simple_list.append(i)
-	print(simple_list)  # [1, 2, 3, 4]
+	print(simple_list)  # [1, 2, 3, 4, 5]
 	print(other_list)  # [6, 7, 8, 9, 10]
-	print(simple_list + other_list)  # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] => Operator overload using __add__ dunder mthd
+	print(simple_list + other_list)  # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] => Operator overload using __add__ magic method
+	print(simple_list.pop(0))
+	print(simple_list)
