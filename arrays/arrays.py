@@ -61,6 +61,11 @@ class DynamicArray:
 		self._A[self._n - 1] = None  # Optional since del performs garbage collection automatically,, I think...
 		self._n -= 1
 
+	def __iter__(self):
+		"""Iterator magic function to enable the DynamicArray to be iteratable"""
+		for idx in range(self._n):
+			yield self._A[idx]
+
 	def append(self, obj):
 		"""Insert into the dynamic array an obj at the last index available"""
 		if self._n == self._capacity:  # There isn't enough space
@@ -132,18 +137,26 @@ class DynamicArray:
 		"""
 		if self._n < 1:
 			raise IndexError('Pop from an empty Array')
+		if key is not None and not 0 <= key < self._n:
+			raise IndexError('Index Out of range')
 		key = key if key is not None else self._n - 1
 		val = self._A[key]
 		if key == self._n - 1:  # Pop in constant time since this is the last element of the array
 			val = self._A[key]
 			self._A[key] = None
 		else:  # Remove the element and shift the remaining right-side elements to the left.
-			print(key)
 			for j in range(key, self._n - 1):
 				self._A[j] = self._A[j + 1]
 			self._A[self._n - 1] = None
 		self._n -= 1
 		return val
+
+	def extend(self, other):
+		"""
+		Adds all elements of another array to the end of the array e.g arr.extend(other)
+		"""
+		for item in other:
+			self.append(item)
 
 
 # Sorting Sequences
@@ -210,4 +223,6 @@ if __name__ == '__main__':
 	print(other_list)  # [6, 7, 8, 9, 10]
 	print(simple_list + other_list)  # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] => Operator overload using __add__ magic method
 	print(simple_list.pop(0))
+	print(simple_list)
+	simple_list.extend(other_list)
 	print(simple_list)
