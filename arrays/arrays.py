@@ -159,6 +159,59 @@ class DynamicArray:
 			self.append(item)
 
 
+"""" Application of Python Sequence Types in Problems """
+
+
+class GameEntry(object):
+	"""Represents an entry of a list of high scores"""
+
+	def __init__(self, name, score):
+		self._name = name
+		self._score = score
+
+	def get_name(self):
+		return self._name
+
+	def get_score(self):
+		return self._score
+
+	def __str__(self):
+		return '({0}, {1})'.format(self._name, self._score)
+
+
+class HighScore(object):
+	"""Fixed length sequence of high scores in non-decreasing order"""
+
+	def __init__(self, capacity = 10):
+		"""Initialize the score boar with a given capacity. Defaults to 10"""
+		self._board = [None] * capacity
+		self._n = 0
+
+	def __getitem__(self, k):
+		"""Return item at index k"""
+		return self._board[k]
+
+	def __str__(self):
+		"""Return the string representation of the high score list"""
+		return '\n'.join(str(self._board[j]) for j in range(self._n))
+
+	def add(self, entry):
+		"""Add a new entry to high scores"""
+		score = entry.get_score()
+
+		# Check if board is not full or score is greater than last entry in the board
+		good = self._n < len(self._board) or self._board[-1].get_score < score
+
+		if good:
+			if self._n < len(self._board):
+				self._n += 1
+			pos = self._n - 1  # Actual count of high-scores currently on the board
+			while pos > 0 and self._board[pos - 1].get_score() < score:
+				self._board[pos] = self._board[pos - 1]
+				pos -= 1
+			self._board[pos] = entry
+
+
 # Sorting Sequences
 # Insertion Sort
 def insertion_sort(data):
