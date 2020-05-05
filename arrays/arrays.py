@@ -75,11 +75,14 @@ class DynamicArray:
 		# are a total of n elements in an array with extra capacity.
 		self._n += 1
 
-	def _resize(self, c):
+	def _resize(self, c, shift = False, k = -1):
 		"""Non-public utility method for resizing the dynamic array to a new capacity c"""
 		B = self._make_array(c)
-		for k in range(self._n):
-			B[k] = self._A[k]
+		start = self._n if shift else self._n - 1
+		if shift:
+			B[start] = 0
+		for j in range(start, -1, -1):
+			B[j] = self._A[j - 1] if shift and j > k else self._A[j]
 		self._A = B
 		self._capacity = c
 
@@ -90,10 +93,14 @@ class DynamicArray:
 
 	def insert(self, k, value):
 		"""Insert value at index k assuming that 0 <= k < n"""
+		if k >= self._capacity:
+			self.append(value)
+			return
 		if self._n == self._capacity:
-			self._resize(2 * self._capacity)
-		for j in range(self._n, k, -1):  # Shift items right, starting with the rightmost up-to the index k
-			self._A[j] = self._A[j - 1]
+			self._resize(2 * self._capacity, shift = True, k = k)
+		else:
+			for j in range(self._n, k, -1):  # Shift items right, starting with the rightmost up-to the index k
+				self._A[j] = self._A[j - 1]
 		self._A[k] = value
 		self._n += 1
 
@@ -232,8 +239,8 @@ class CaesarCipher:
 	"""Caesar's Cipher implementation with an arbitrary character shift"""
 	def __init__(self, shift):
 		"""Construct a Caesar cipher using a given integer for shift rotation"""
-		encoder = [None] * 26
-		decoder = [None] * 26
+		encoder = [''] * 26
+		decoder = [''] * 26
 		for k in range(26):
 			encoder[k] = chr((k + shift) % 26 + ord('A'))
 			decoder[k] = chr((k - shift) % 26 + ord('A'))
@@ -269,12 +276,15 @@ if __name__ == '__main__':
 	# print('DECODED: ', decoded)
 	simple_list = DynamicArray()
 	other_list = DynamicArray()
-	for i in range(6, 11):
-		other_list.append(i)
-	for i in range(1, 6):
+	# for i in range(6, 11):
+	# 	other_list.append(i)
+	for i in range(1, 9):
 		simple_list.append(i)
-	# print(simple_list)
-	print(simple_list[-8])  # [1, 2, 3, 4, 5]
+		# print(simple_list)
+	print(simple_list)
+	# print(simple_list[-5])  # [1, 2, 3, 4, 5]
+	simple_list.insert(8, 7)
+	print(simple_list)
 	# print(other_list)  # [6, 7, 8, 9, 10]
 	# print(simple_list + other_list)  # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] => Operator overload using __add__ magic method
 	# print(simple_list.pop(0))
