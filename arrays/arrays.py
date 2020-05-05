@@ -23,8 +23,9 @@ class DynamicArray:
 
 	def __getitem__(self, key):
 		"""Retrieves an item from the array e.g array[0]"""
-		if not 0 <= key < self._n:
+		if (key < 0 and key < -self._n) or not key < self._n:
 			raise IndexError('Index Out of Range')
+		key = key if key >= 0 else self._n + key
 		return self._A[key]
 
 	def __repr__(self):
@@ -183,7 +184,7 @@ class HighScore(object):
 	"""Fixed length sequence of high scores in non-decreasing order"""
 
 	def __init__(self, capacity = 10):
-		"""Initialize the score boar with a given capacity. Defaults to 10"""
+		"""Initialize the score board with a capacity. Defaults to 10"""
 		self._board = [None] * capacity
 		self._n = 0
 
@@ -263,19 +264,20 @@ if __name__ == '__main__':
 	message = 'THE EAGLE HAS LANDED'
 	enc = CaesarCipher(5)
 	coded = enc.encrypt(message)
-	print('SECRET: ', coded)
+	# print('SECRET: ', coded)
 	decoded = enc.decrypt(coded)
-	print('DECODED: ', decoded)
+	# print('DECODED: ', decoded)
 	simple_list = DynamicArray()
 	other_list = DynamicArray()
 	for i in range(6, 11):
 		other_list.append(i)
 	for i in range(1, 6):
 		simple_list.append(i)
-	print(simple_list)  # [1, 2, 3, 4, 5]
-	print(other_list)  # [6, 7, 8, 9, 10]
-	print(simple_list + other_list)  # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] => Operator overload using __add__ magic method
-	print(simple_list.pop(0))
-	print(simple_list)
-	simple_list.extend(other_list)
-	print(simple_list)
+	# print(simple_list)
+	print(simple_list[-8])  # [1, 2, 3, 4, 5]
+	# print(other_list)  # [6, 7, 8, 9, 10]
+	# print(simple_list + other_list)  # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] => Operator overload using __add__ magic method
+	# print(simple_list.pop(0))
+	# print(simple_list)
+	# simple_list.extend(other_list)
+	# print(simple_list)
