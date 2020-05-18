@@ -279,9 +279,20 @@ def sum_matrix(matrix):
     return sum(j for i in matrix for j in i)
 
 
+# R-5.7 Let A be an array of size n ≥ 2 containing integers from 1 to n−1, inclusive,
+# with exactly one repeated. Describe a fast algorithm for finding the
+# integer in A that is repeated.
+def find_duplicates(data):
+    """Finds the repeated integer in a list which at least one such repetition"""
+    found = {}
+    for i in range(len(data)):
+        if data[i] in found:
+            return data[i]
+        found[data[i]] = i
+
+
 if __name__ == '__main__':
     # print(insertion_sort([5, 1, 4, 3, 2]))
-    assert sum_matrix([[1, 2, 3], [4, 5, 6]]) == 21
     message = 'THE EAGLE HAS LANDED'
     enc = CaesarCipher(5)
     coded = enc.encrypt(message)
@@ -304,3 +315,5 @@ if __name__ == '__main__':
     # print(simple_list)
     # simple_list.extend(other_list)
     # print(simple_list)
+    assert sum_matrix([[1, 2, 3], [4, 5, 6]]) == 21
+    assert find_duplicates([1,2,3,4,5,6,6]) == 6
