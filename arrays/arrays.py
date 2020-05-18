@@ -274,8 +274,14 @@ class CaesarCipher:
         return ''.join(msg)
 
 
+def sum_matrix(matrix):
+    """Compute the sum of all numbers in a n * n dataset"""
+    return sum(j for i in matrix for j in i)
+
+
 if __name__ == '__main__':
     # print(insertion_sort([5, 1, 4, 3, 2]))
+    assert sum_matrix([[1, 2, 3], [4, 5, 6]]) == 21
     message = 'THE EAGLE HAS LANDED'
     enc = CaesarCipher(5)
     coded = enc.encrypt(message)
