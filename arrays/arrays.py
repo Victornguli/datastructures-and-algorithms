@@ -250,9 +250,8 @@ class CaesarCipher:
         """Construct a Caesar cipher using a given integer for shift rotation"""
         encoder = [''] * 26
         decoder = [''] * 26
-        for k in range(26):
-            encoder[k] = chr((k + shift) % 26 + ord('A'))
-            decoder[k] = chr((k - shift) % 26 + ord('A'))
+        encoder = [chr((i + shift) % 26 + ord('A')) for i in range(26)]
+        decoder = [chr((i - shift) % 26 + ord('A')) for i in range(26)]
         self._forward = ''.join(encoder)
         self._backward = ''.join(decoder)
 
