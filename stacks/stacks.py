@@ -6,10 +6,16 @@ class Empty(Exception):
 	pass
 
 
+class StackOverflowException(Exception):
+	"""Push operation on a full stack"""
+	pass
+
+
 class ArrayStack:
 	"""LIFO Implementation based on list storage"""
 
-	def __init__(self):
+	def __init__(self, max_len = None):
+		self._max_len = max_len
 		self._data = []
 
 	def __len__(self):
@@ -24,6 +30,8 @@ class ArrayStack:
 
 	def push(self, val):
 		"""Adds a value to the top of the stack"""
+		if self._max_len is not None and len(self) == self._max_len:
+			raise StackOverflowException('Stack is full')
 		return self._data.append(val)
 
 	def top(self):
@@ -49,7 +57,7 @@ def is_matched(expr):
 	stack = ArrayStack()
 	for c in expr:
 		if c in lefty:
-			stack.append(c)
+			stack.push(c)
 		elif c in righty:
 			if stack.is_empty():  # If c in left then it must be in right to be a matching pair i.e () / {} / []
 				return False
@@ -69,7 +77,7 @@ def is_matched_html(raw):
 			return False  # Closing Tag not Found
 		tag = raw[j + 1:k]  # The html tag e.g title or /title
 		if not tag.startswith('/'):
-			stack.append(tag)
+			stack.push(tag)
 		else:
 			if stack.is_empty():
 				return False  # Empty stack yet a closing tag is found means the html tag is not valid
@@ -125,11 +133,11 @@ def reverse_list_with_stack(data):
 
 
 if __name__ == '__main__':
-	s = ArrayStack()
+	s = ArrayStack(max_len = 5)
 	t = ArrayStack()
 	for i in range(5):
 		s.push(i)
-	print(pop_recurs(s))
+	# print(pop_recurs(s))
 	# print(s)
 	# print(transfer(s, t))
-	print(reverse_list_with_stack([1, 2, 3, 4, 5]))
+	# print(reverse_list_with_stack([1, 2, 3, 4, 5]))
