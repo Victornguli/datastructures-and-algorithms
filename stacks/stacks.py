@@ -133,10 +133,11 @@ def pop_recurs(stack):
 	"""
 	Give a recursive method for removing all the elements from a stack
 	"""
-	if not stack.is_empty():
+	if stack.is_empty():
+		return stack
+	else:
 		stack.pop()
 		return pop_recurs(stack)
-	return stack
 
 
 def reverse_list_with_stack(data):
@@ -160,7 +161,8 @@ if __name__ == '__main__':
 	t = ArrayStack()
 	for i in range(5):
 		s.push(i)
-	# print(pop_recurs(s))
+	# pop_recurs(s)
+	# assert len(s) == 0
 	print(s)
 	assert s.top() == 4, "Top element in the stack should be 4"
 	transfer(s, t)
