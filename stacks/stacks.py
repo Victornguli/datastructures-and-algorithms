@@ -6,8 +6,8 @@ class Empty(Exception):
 	pass
 
 
-class StackOverflowException(Exception):
-	"""Push operation on a full stack"""
+class Full(Exception):
+	"""Push operation on a full stack :)"""
 	pass
 
 
@@ -17,33 +17,55 @@ class ArrayStack:
 	def __init__(self, max_len = None):
 		self._max_len = max_len
 		self._data = []
+		self._n = 0
+		if self._max_len:
+			self._data = [None] * self._max_len
 
 	def __len__(self):
+		if self._max_len is not None:
+			return self._n
 		return len(self._data)
 
 	def __repr__(self):
 		"""Returns representational str of the array"""
+		if self._max_len is not None:
+			return str(self._data[0:self._n])
 		return str(self._data)
 
 	def is_empty(self):
+		if self._max_len is not None:
+			return self._n == 0
 		return self._data == []
 
 	def push(self, val):
 		"""Adds a value to the top of the stack"""
-		if self._max_len is not None and len(self) == self._max_len:
-			raise StackOverflowException('Stack is full')
-		return self._data.append(val)
+		if self._max_len is not None and self._n == self._max_len:
+			raise Full('Stack is full')
+		# Append element then increment _n if max_len is specified.
+		if self._max_len is not None:
+			self._data[self._n] = val
+			self._n += 1
+			return
+		else:
+			return self._data.append(val)
 
 	def top(self):
 		"""Return the top item. Raise Empty error if topmost item in stack is not found"""
 		if self.is_empty():
 			raise Empty('Stack is empty')
+		if self._max_len is not None:
+			return self._data[self._n - 1]
 		return self._data[-1]
 
 	def pop(self):
 		"""Remove the topmost item in the stack"""
 		if self.is_empty():
 			raise Empty('Stack is empty')
+		if self._max_len is not None:
+			val = self._data[self._n - 1]
+			self._data[self._n - 1] = None
+			self._n -= 1
+			return val
 		return self._data.pop()
 
 
@@ -134,10 +156,15 @@ def reverse_list_with_stack(data):
 
 if __name__ == '__main__':
 	s = ArrayStack(max_len = 5)
+	assert s.is_empty() is True, "Should be initialed as empty"
 	t = ArrayStack()
 	for i in range(5):
 		s.push(i)
 	# print(pop_recurs(s))
-	# print(s)
-	# print(transfer(s, t))
+	print(s)
+	assert s.top() == 4, "Top element in the stack should be 4"
+	transfer(s, t)
+	assert len(s) is 0, "Stack S should be emptied"
+	assert len(t) is 5, "Stack T should hold the copied elements from S"
+	assert t.top() == 0, "Top stack element should now be 0"
 	# print(reverse_list_with_stack([1, 2, 3, 4, 5]))
