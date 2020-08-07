@@ -83,6 +83,10 @@ class ArrayDeque:
 		"""Returns the size of the queue"""
 		return self._size
 
+	def __repr__(self):
+		"""Outputs a formatted representation of the deque"""
+		return str(self._data)
+
 	def is_empty(self):
 		"""Returns True if the queue is empty"""
 		return self._size == 0
@@ -106,7 +110,7 @@ class ArrayDeque:
 		"""
 		if self._size == len(self._data):
 			self._resize(2 * len(self._data))
-		self._front = (self._front - 1) % len(self._data)  # Cyclic shift
+		self._front = (self._front - 1) % len(self._data)  # Takes care of cyclic array
 		self._data[self._front] = e
 		self._size += 1
 
@@ -156,4 +160,34 @@ class ArrayDeque:
 
 	def rotate(self, k):
 		"""Circularly shift the queue rightwards with k steps"""
-		pass
+		new = [None] * len(self._data)
+		for j in range(len(self._data)):
+			idx = (j + k) % len(self._data)
+			new[idx] = self._data[j]
+		self._data = new
+		return self._data
+
+
+if __name__ == '__main__':
+	deque = ArrayDeque()
+	for i in range(10):
+		deque.add_last(i)
+
+	assert deque.is_empty() is False and len(deque) == 10, 'Should insert 10 elements'
+	assert deque.first() == 0, 'First element in deque should be 0'
+	assert deque.last() == 9, 'Last element in the deque should be 9'
+	deque.rotate(1)
+	assert deque.first() == 9, 'Should rotate elements to the right'
+	deque.delete_last()
+	assert deque.last() == 7, 'Should delete the last element{8}'
+	deque.delete_first()
+	assert deque.first() == 0, 'Should delete the first element{9}'
+	deque.add_first(9)
+	assert deque.first() == 9, 'Should add 9 at the front'
+	deque.add_last(8)
+	assert deque.last() == 8, 'Should add 8 at the front'
+
+	deque.rotate(-1)
+	assert deque.first() == 0 and deque.last() == 9, 'Should revert with a single cyclic shift to the left.'
+	print(deque)
+
